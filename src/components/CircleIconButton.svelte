@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ContentLoader from "$components/misc/ContentLoader.svelte"
+    import ContentLoader from "$components/ContentLoader.svelte"
 
     export let color = "var(--accent-color)"
     export let size = "2.75rem"
