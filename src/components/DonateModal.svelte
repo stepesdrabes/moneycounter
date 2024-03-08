@@ -57,7 +57,6 @@
             if (locationResponse.ok) {
                 const locationJson = await locationResponse.json()
                 countryCode = locationJson.countryCode
-                console.log(countryCode)
             }
         }
     })

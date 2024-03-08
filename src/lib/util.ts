@@ -22,3 +22,5 @@ export const formatRelativeDate = (date: Date): string => {
 
     return formattedDate.slice(0, 3).join('.') + ' ' + formattedDate.slice(3).join(':')
 }
+
+export const getFlagEmoji = (countryCode: string) => String.fromCodePoint(...[...countryCode.toUpperCase()].map(x => 0x1f1a5 + x.charCodeAt(0)))

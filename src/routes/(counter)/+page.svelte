@@ -9,7 +9,7 @@
     import DonateModal from "$components/DonateModal.svelte"
     import LabelText from "$components/misc/LabelText.svelte"
     import CenteredPageContainer from "$components/layout/CenteredPageContainer.svelte"
-    import {formatRelativeDate} from "$lib/dateUtil"
+    import {formatRelativeDate, getFlagEmoji} from "$lib/util"
     import {tweened} from "svelte/motion"
     import {cubicOut} from "svelte/easing"
     import {browser} from "$app/environment"
@@ -72,7 +72,7 @@
         <Spacer value="var(--spacing-ms)"/>
 
         <div class="last-donator-container">
-            <span class="flag">{data.lastDonator.anonymous || data.lastDonator.country === 'UNKNOWN' ? '🌍' : '🇩🇪'}</span>
+            <span class="flag">{data.lastDonator.anonymous || data.lastDonator.country === 'UNKNOWN' ? '🌍' : getFlagEmoji(data.lastDonator.country)}</span>
             <div class="point-divider"></div>
             <p class="name">{data.lastDonator.anonymous ? 'Anonymous Donator' : data.lastDonator.name}</p>
             <div class="point-divider"></div>
