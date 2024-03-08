@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap');
+@import url('https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css');
+@import "reset";
+
+:root {
+  --text-biggest: 1.75rem;
+  --text-big: 1.5rem;
+  --text-medium: 1.25rem;
+  --text-normal: 1rem;
+  --text-midsmaller: 0.925rem;
+  --text-smaller: 0.875rem;
+  --text-midsmall: 0.825rem;
+  --text-small: 0.75rem;
+  --text-smallest: 0.675rem;
+
+  --spacing-xs: 0.25rem;
+  --spacing-s: 0.5rem;
+  --spacing-ms: 0.75rem;
+  --spacing-m: 1rem;
+  --spacing-ml: 1.25rem;
+  --spacing-l: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+
+  --border-radius-small: 0.125rem;
+  --border-radius-smaller: 0.2rem;
+  --border-radius-normal: 0.25rem;
+  --border-radius-medium: 0.33rem;
+  --border-radius-big: 0.6rem;
+
+  --accent-color: #3662f3;
+  --okay-green: #1ca266;
+  --danger-red: #e53b5a;
+  --error-crimson: #c71322;
+  --warning-orange: #f19c2c;
+  --golden-shine: #F5C21B;
+}
+
+.light-theme {
+  --box-background-color: #dde0e6;
+  --box-background-color-highlight: #FFFFFF;
+  --background-color: #eff0f3;
+  --background-color-rgb: 255, 255, 255;
+  --text-color: #25252a;
+  --text-color-rgb: 37, 37, 42;
+  --label-color: #7B7B7B;
+  --label-icon-color: #31313c;
+  --outline-color: #d7d7d7;
+  --background-text-color: #e6e6e6;
+}
+
+.dark-theme {
+  --box-background-color: #121519;
+  --box-background-color-highlight: #1a1a27;
+  --background-color: #1C1F26;
+  --background-color-rgb: 24, 25, 26;
+  --text-color: #e1e2ea;
+  --text-color-rgb: 225, 226, 234;
+  --label-color: #797A83;
+  --label-icon-color: #999da5;
+  --outline-color: #31313c;
+  --background-text-color: #28292c;
+  --okay-green: #1ca266;
+  --accent-second-color: #05081c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+html {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  --page-padding: 8rem;
+  --page-vertical-padding: 1.75rem;
+  scroll-behavior: smooth;
+  font-family: 'Kanit', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  flex-grow: 1;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.highlight-link:hover {
+  text-decoration: underline;
+}
+
+i {
+  line-height: 0;
+}
+
+h1 {
+  font-size: var(--text-big);
+}
+
+h2 {
+  font-size: var(--text-medium);
+}
+
+h3 {
+  font-size: var(--text-normal);
+}
+
+h4 {
+  font-size: var(--text-smaller);
+}
+
+h5 {
+  font-size: var(--text-midsmall);
+}
+
+@keyframes slideInBottomPartially {
+  0% {
+    transform: translateY(0.5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.875);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 100%;
+  }
+}
+
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 100%;
+  }
+}
