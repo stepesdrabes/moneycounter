@@ -13,7 +13,7 @@
     <Spacer value="var(--spacing-ms)"/>
     <h1>Donation was successful</h1>
     <Spacer value="var(--spacing-s)"/>
-    <LabelText text="Thank you, {data.donate.name}, for donating {data.donate.amount}!" textAlign="center"/>
+    <LabelText text="Thank you, {data.donate.name}, for donating {data.donate.amount} EUR!" textAlign="center"/>
     <Spacer value="var(--spacing-ml)"/>
     <Button height="2.75rem" width="min-content" label="Back to home" href="/" icon="arrow-left"/>
 </CenteredPageContainer>

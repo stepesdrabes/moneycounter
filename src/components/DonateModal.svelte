@@ -2,10 +2,10 @@
     import Modal from "$components/layout/Modal.svelte"
     import ToggleSwitch from "$components/inputs/ToggleSwitch.svelte"
     import LabelText from "$components/misc/LabelText.svelte"
-    import IconNumberField from "$components/inputs/IconNumberField.svelte"
     import Spacer from "$components/layout/Spacer.svelte"
     import IconInputField from "$components/inputs/IconInputField.svelte"
     import Button from "$components/inputs/Button.svelte"
+    import MoneyInput from "$components/inputs/MoneyInput.svelte"
 
     export let shown = false
     export let onClose: () => void
@@ -17,6 +17,10 @@
 
     $: valuesCorrect = selectedAmount > 0
         && (selectedName.length > 0 || stayAnonymous)
+
+    const handleAmountChange = (event: CustomEvent<{ value: string }>) => {
+        selectedAmount = parseFloat(event.detail.value)
+    }
 
     const checkout = async () => {
         if (checkingOut) return
@@ -43,10 +47,13 @@
     <div class="donate-modal-container">
         <h2>How much do you want to donate?</h2>
         <Spacer value="var(--spacing-m)"/>
-        <IconNumberField height="2.5rem" icon="money" placeholder="Amount"
-                         onValueChange="{(value) => selectedAmount = value ?? 0}"/>
+
+        <MoneyInput on:change={handleAmountChange}/>
         <Spacer value="var(--spacing-s)"/>
-        <LabelText text="Currency is Euro (€)"/>
+
+        <div class="euro-label">
+            <span class="label">EUR €</span>
+        </div>
 
         <Spacer value="var(--spacing-xl)"/>
 
@@ -84,6 +91,21 @@
     flex-direction: column;
     align-items: center;
     padding: 3.5rem var(--spacing-l) 2.25rem;
+  }
+
+  .euro-label {
+    padding: 0.35rem var(--spacing-s);
+    border-radius: 1rem;
+    background-color: var(--background-color);
+    outline: 1px solid var(--outline-color);
+    display: flex;
+
+    .label {
+      font-size: var(--text-smallest);
+      color: var(--label-color);
+      font-weight: 500;
+      line-height: 1;
+    }
   }
 
   .checkbox-setting-row {
