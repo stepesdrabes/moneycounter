@@ -30,7 +30,7 @@
             body: JSON.stringify({
                 amount: selectedAmount,
                 name: selectedName,
-                stayAnonymous: stayAnonymous
+                anonymous: stayAnonymous
             }),
         }).then((data) => data.json())
 

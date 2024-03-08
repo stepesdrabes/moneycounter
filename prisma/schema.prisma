@@ -8,10 +8,11 @@ datasource db {
 }
 
 model Donate {
-  id        Int      @id @default(autoincrement())
+  session   String   @id
   anonymous Boolean
   amount    Float
   name      String
   country   String
+  accepted  Boolean  @default(false)
   timestamp DateTime @default(now())
 }

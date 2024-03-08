@@ -4,9 +4,15 @@
     import LineDivider from "$components/layout/LineDivider.svelte"
     import CircleIconButton from "$components/inputs/CircleIconButton.svelte"
     import theme, {withoutThemeTransition} from "$lib/theme"
-    import {onDestroy} from "svelte"
+    import {onDestroy, onMount} from "svelte"
     import type {PageData} from './$types'
     import DonateModal from "$components/DonateModal.svelte"
+    import LabelText from "$components/misc/LabelText.svelte"
+    import CenteredPageContainer from "$components/layout/CenteredPageContainer.svelte"
+    import {formatRelativeDate} from "$lib/dateUtil"
+    import {tweened} from "svelte/motion"
+    import {cubicOut} from "svelte/easing"
+    import {browser} from "$app/environment"
 
     export let data: PageData
 
@@ -23,6 +29,16 @@
         })
     }
 
+    const tweenedProgress = tweened(0, {
+        duration: 2000,
+        easing: cubicOut
+    })
+
+    onMount(() => {
+        if (!browser) return
+        tweenedProgress.set(1)
+    })
+
     onDestroy(() => {
         darkUnsubscribe()
     })
@@ -30,13 +46,17 @@
 
 <DonateModal shown="{donateShown}" onClose="{() => donateShown = false}"/>
 
-<div class="counter-container">
-    <h1 class="counter">{data.amount} €</h1>
+<CenteredPageContainer>
+    <h1 class="counter">{(data.amount * $tweenedProgress).toFixed(2)} €</h1>
 
     <Spacer value="var(--spacing-m)"/>
 
-    <div class="progress-bar">
-        <div class="progress" style="width: {progress}%"></div>
+    <div class="progress-bar-container">
+        <LabelText width="1.5rem" textAlign="right" text="{(progress * $tweenedProgress).toFixed(0)}%"/>
+
+        <div class="progress-bar">
+            <div class="progress" style="width: {(progress * $tweenedProgress)}%"></div>
+        </div>
     </div>
 
     <Spacer value="var(--spacing-l)"/>
@@ -58,7 +78,7 @@
             <div class="point-divider"></div>
             <p class="amount">{data.lastDonator.amount} €</p>
             <div class="point-divider"></div>
-            <span class="date">9 mins ago</span>
+            <span class="date">{formatRelativeDate(data.lastDonator.timestamp)}</span>
         </div>
     {/if}
 
@@ -66,41 +86,38 @@
         <CircleIconButton icon="{dark ? 'sun' : 'moon'}" title="Switch theme" compact="{true}"
                           iconColor="var(--text-color)" onClick={toggleTheme}/>
     </div>
-</div>
+</CenteredPageContainer>
 
 <style lang="scss">
-  .counter-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-
-    .theme-switch {
-      position: absolute;
-      top: var(--spacing-m);
-      right: var(--spacing-m);
-    }
+  .theme-switch {
+    position: absolute;
+    top: var(--spacing-m);
+    right: var(--spacing-m);
   }
 
   .counter {
     font-size: 2.25rem;
   }
 
-  .progress-bar {
-    width: 20rem;
-    height: 0.5rem;
-    border-radius: 0.25rem;
-    overflow: hidden;
-    background-color: var(--box-background-color);
-    outline: 1px solid var(--outline-color);
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-ms);
 
-    .progress {
-      height: 100%;
-      background-color: var(--okay-green);
+    .progress-bar {
+      width: 20rem;
+      height: 0.5rem;
       border-radius: 0.25rem;
+      overflow: hidden;
+      background-color: var(--box-background-color);
+      outline: 1px solid var(--outline-color);
+
+      .progress {
+        height: 100%;
+        background-color: var(--okay-green);
+        border-radius: 0.25rem;
+        transition: width 0.1s;
+      }
     }
   }
 
@@ -120,6 +137,7 @@
     .amount {
       font-size: var(--text-midsmaller);
       color: var(--accent-color);
+      font-weight: 500;
     }
 
     .date {
