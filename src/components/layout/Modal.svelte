@@ -1,5 +1,5 @@
 <script lang="ts">
-    import CircleIconButton from "$components/CircleIconButton.svelte"
+    import CircleIconButton from "$components/inputs/CircleIconButton.svelte"
     import {fade} from 'svelte/transition'
     import {onDestroy, onMount} from "svelte"
     import {browser} from "$app/environment"

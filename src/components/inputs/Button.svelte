@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ContentLoader from "$components/ContentLoader.svelte"
+    import ContentLoader from "$components/misc/ContentLoader.svelte"
 
     export let label = ""
     export let height = "3rem"
