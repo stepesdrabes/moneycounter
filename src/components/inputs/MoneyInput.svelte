@@ -18,7 +18,7 @@
     }
 
     onMount(() => {
-        if(!browser) return
+        if (!browser) return
         setTimeout(() => currencyInput.focus(), 100)
     })
 </script>
@@ -32,5 +32,6 @@
     outline: none;
     font-size: 2rem;
     font-weight: 500;
+    color: var(--text-color);
   }
 </style>
