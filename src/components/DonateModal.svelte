@@ -6,6 +6,8 @@
     import IconInputField from "$components/inputs/IconInputField.svelte"
     import Button from "$components/inputs/Button.svelte"
     import MoneyInput from "$components/inputs/MoneyInput.svelte"
+    import {onMount} from "svelte"
+    import {browser} from "$app/environment"
 
     export let shown = false
     export let onClose: () => void
@@ -14,6 +16,7 @@
     let selectedName = ""
     let stayAnonymous = false
     let checkingOut = false
+    let countryCode = ""
 
     $: valuesCorrect = selectedAmount > 0
         && (selectedName.length > 0 || stayAnonymous)
@@ -34,13 +37,30 @@
             body: JSON.stringify({
                 amount: selectedAmount,
                 name: selectedName,
-                anonymous: stayAnonymous
+                anonymous: stayAnonymous,
+                country: countryCode
             }),
         }).then((data) => data.json())
 
         checkingOut = false
         window.location.replace(data.url)
     }
+
+    onMount(async () => {
+        if (!browser) return
+        const ipResponse = await fetch('https://api.ipify.org?format=json')
+        if (ipResponse.ok) {
+            const ipJson = await ipResponse.json()
+            let currentIpAddress = ipJson.ip
+
+            const locationResponse = await fetch(`https://${location.hostname}/ip-api/${currentIpAddress}`)
+            if (locationResponse.ok) {
+                const locationJson = await locationResponse.json()
+                countryCode = locationJson.countryCode
+                console.log(countryCode)
+            }
+        }
+    })
 </script>
 
 <Modal width="27.5rem" height="35rem" shown="{shown}" onClose="{onClose}">

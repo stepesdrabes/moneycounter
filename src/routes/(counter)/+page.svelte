@@ -72,7 +72,7 @@
         <Spacer value="var(--spacing-ms)"/>
 
         <div class="last-donator-container">
-            <span class="flag">{data.lastDonator.anonymous ? '🌍' : '🇩🇪'}</span>
+            <span class="flag">{data.lastDonator.anonymous || data.lastDonator.country === 'UNKNOWN' ? '🌍' : '🇩🇪'}</span>
             <div class="point-divider"></div>
             <p class="name">{data.lastDonator.anonymous ? 'Anonymous Donator' : data.lastDonator.name}</p>
             <div class="point-divider"></div>
