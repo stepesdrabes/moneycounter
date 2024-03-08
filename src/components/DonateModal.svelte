@@ -18,7 +18,7 @@
     let checkingOut = false
     let countryCode = ""
 
-    $: valuesCorrect = selectedAmount > 0
+    $: valuesCorrect = selectedAmount >= 1
         && (selectedName.length > 0 || stayAnonymous)
 
     const handleAmountChange = (event: CustomEvent<{ value: string }>) => {
@@ -73,6 +73,9 @@
         <div class="euro-label">
             <span class="label">EUR €</span>
         </div>
+
+        <Spacer value="var(--spacing-s)"/>
+        <LabelText text="Minimum amount is 1€" textAlign="center"/>
 
         <Spacer value="var(--spacing-xl)"/>
 
