@@ -3,5 +3,5 @@ export interface LastDonator {
     anonymous: boolean
     country: string
     name: string
-    timestamp: string
+    timestamp: Date
 }
