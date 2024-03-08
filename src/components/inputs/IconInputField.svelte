@@ -41,7 +41,7 @@
 </script>
 
 <div class="icon-input-field"
-     style="height: {height}; --outlineColor: {outlineColor}; --bgColor: {backgroundColor}; --textColor: {textColor}; --outlineWidth: {outlineWidth}">
+     style="--height: {height}; height: {height}; --outlineColor: {outlineColor}; --bgColor: {backgroundColor}; --textColor: {textColor}; --outlineWidth: {outlineWidth}">
     {#if icon}
         <i class="icon fi fi-br-{icon}" style="color: {iconColor}"></i>
     {/if}
@@ -73,7 +73,7 @@
     flex-grow: 0;
     position: relative;
     width: 100%;
-    border-radius: 0.3rem;
+    border-radius: calc(var(--height) / 2);
     padding: 0 1rem;
     color: var(--textColor);
     isolation: isolate;
@@ -90,7 +90,6 @@
     }
 
     input {
-      border-radius: 0.25rem;
       position: absolute;
       top: 0;
       left: 0;
@@ -98,6 +97,7 @@
       height: 100%;
       border: none;
       background: none;
+      border-radius: calc(var(--height) / 2);
       color: var(--textColor);
       accent-color: var(--accent-color);
       outline: 1px solid transparent;

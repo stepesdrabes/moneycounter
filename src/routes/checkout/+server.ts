@@ -34,7 +34,7 @@ export const POST: RequestHandler = async ({request}) => {
             session: session.id,
             anonymous: data.anonymous,
             amount: data.amount,
-            name: data.name,
+            name: data.anonymous ? 'Anonymous' : data.name,
             country: 'DE',
             accepted: false
         }

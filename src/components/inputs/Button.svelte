@@ -160,7 +160,7 @@
     border: none;
     height: var(--btnHeight);
     padding: 0 1.5rem;
-    border-radius: 0.3rem;
+    border-radius: calc(var(--btnHeight) / 2);
     font-weight: 500;
     font-size: var(--text-smaller);
     cursor: pointer;

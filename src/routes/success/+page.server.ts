@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({url}) => {
     const session = await stripe.checkout.sessions.retrieve(sessionId)
     if (session.status !== 'complete') redirect(303, '/')
 
-    await db.donate.update({
+    const donate = await db.donate.update({
         where: {
             session: sessionId
         },
@@ -19,5 +19,7 @@ export const load: PageServerLoad = async ({url}) => {
         }
     })
 
-    redirect(302, '/')
+    return {
+        donate: donate
+    }
 }

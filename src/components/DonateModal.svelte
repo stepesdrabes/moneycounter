@@ -16,7 +16,7 @@
     let checkingOut = false
 
     $: valuesCorrect = selectedAmount > 0
-        && selectedName.length > 0
+        && (selectedName.length > 0 || stayAnonymous)
 
     const checkout = async () => {
         if (checkingOut) return
@@ -45,14 +45,17 @@
         <Spacer value="var(--spacing-m)"/>
         <IconNumberField height="2.5rem" icon="money" placeholder="Amount"
                          onValueChange="{(value) => selectedAmount = value ?? 0}"/>
+        <Spacer value="var(--spacing-s)"/>
+        <LabelText text="Currency is Euro (€)"/>
+
         <Spacer value="var(--spacing-xl)"/>
 
         <h2>What's your name?</h2>
         <Spacer value="var(--spacing-m)"/>
-        <IconInputField height="2.5rem" icon="user" placeholder="Name"
+        <IconInputField height="2.5rem" icon="user" placeholder="Name{stayAnonymous ? ` (won't be shown)` : ''}"
                         onValueChange="{(value) => selectedName = value}"/>
 
-        <Spacer value="var(--spacing-l)"/>
+        <Spacer value="var(--spacing-ms)"/>
 
         <label class="checkbox-setting-row" for="setting-whole-day">
             <ToggleSwitch id="setting-whole-day" bind:checked={stayAnonymous}/>
@@ -86,11 +89,11 @@
   .checkbox-setting-row {
     width: calc(100% + 1rem);
     cursor: pointer;
-    padding: 0.75rem 0.5rem;
+    padding: 0.62rem 0.5rem;
     margin: 0 -0.5rem;
     display: flex;
     align-items: center;
-    border-radius: 0.25rem;
+    border-radius: 2rem;
     gap: var(--spacing-m);
     transition: background-color 0.3s ease-in-out;
 
