@@ -1,7 +1,7 @@
 import type {PageServerLoad} from './$types'
 import {env} from '$env/dynamic/private'
-import db from "$lib/db";
-import type {LastDonator} from "../../type/lastDonator"
+import db from "$lib/db"
+import type {LastDonator} from "$type/lastDonator"
 
 export const load: PageServerLoad = async () => {
     const goal = Number(env.GOAL)

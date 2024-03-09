@@ -2,6 +2,7 @@ import type {PageServerLoad} from './$types'
 import {stripe} from "../stripe"
 import {redirect} from "@sveltejs/kit"
 import db from "$lib/db"
+import type {LastDonator} from "$type/lastDonator"
 
 export const load: PageServerLoad = async ({url}) => {
     const sessionId = url.searchParams.get('session_id')
@@ -10,7 +11,7 @@ export const load: PageServerLoad = async ({url}) => {
     const session = await stripe.checkout.sessions.retrieve(sessionId)
     if (session.status !== 'complete') redirect(303, '/')
 
-    const donate = await db.donate.update({
+    const donate: LastDonator = await db.donate.update({
         where: {
             session: sessionId
         },

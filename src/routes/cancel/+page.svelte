@@ -17,15 +17,6 @@
   i {
     font-size: 2rem;
     color: var(--danger-red);
-    animation: 2s ease-in-out 0s infinite bounce;
-  }
-
-  @keyframes bounce {
-    0%, 10%, 90%, 100% {
-      transform: translateY(-0.25rem);
-    }
-    50% {
-      transform: translateY(0);
-    }
+    animation: 2s ease-in-out 0s infinite iconBounce;
   }
 </style>

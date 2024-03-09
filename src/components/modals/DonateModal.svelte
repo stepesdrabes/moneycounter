@@ -8,7 +8,7 @@
     import MoneyInput from "$components/inputs/MoneyInput.svelte"
     import {onMount} from "svelte"
     import {browser} from "$app/environment"
-    import SlideColumn from "$components/misc/SlideColumn.svelte";
+    import SlideColumn from "$components/misc/SlideColumn.svelte"
 
     export let shown = false
     export let onClose: () => void
@@ -132,7 +132,7 @@
         width: calc(100% + 0.2rem);
         height: 0.425rem;
         background-color: var(--golden-shine);
-        bottom: 0.25rem;
+        bottom: 0.175rem;
         left: -0.1rem;
         z-index: -1;
       }

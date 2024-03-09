@@ -7,9 +7,9 @@ export const formatRelativeDate = (date: Date): string => {
     let hour: number = Math.floor(diff / 3600000)
 
     if (diff < 1000) return 'right now'
-    if (sec < 60) return sec + ' sec ago';
-    if (min < 60) return min + ' min ago';
-    if (hour < 24) return hour + ' h ago';
+    if (sec < 60) return sec + ' sec ago'
+    if (min < 60) return min + ' min ago'
+    if (hour < 24) return hour + ' h ago'
 
     let d: Date = date
     d = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes())

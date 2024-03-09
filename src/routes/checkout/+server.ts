@@ -2,7 +2,7 @@ import type {RequestHandler} from './$types'
 import {stripe} from "../stripe"
 import {env} from "$env/dynamic/private"
 import {json} from '@sveltejs/kit'
-import db from "$lib/db";
+import db from "$lib/db"
 
 export const POST: RequestHandler = async ({request}) => {
     const data = await request.json()

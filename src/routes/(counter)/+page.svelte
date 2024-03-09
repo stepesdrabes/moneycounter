@@ -6,18 +6,21 @@
     import theme, {withoutThemeTransition} from "$lib/theme"
     import {onDestroy, onMount} from "svelte"
     import type {PageData} from './$types'
-    import DonateModal from "$components/DonateModal.svelte"
+    import DonateModal from "$components/modals/DonateModal.svelte"
     import LabelText from "$components/misc/LabelText.svelte"
     import CenteredPageContainer from "$components/layout/CenteredPageContainer.svelte"
     import {convertToTwemoji, formatRelativeDate, getFlagEmoji} from "$lib/util"
     import {tweened} from "svelte/motion"
     import {cubicOut} from "svelte/easing"
     import {browser} from "$app/environment"
+    import {InfoModalEnum} from "$type/infoModalEnum"
+    import InfoModal from "$components/modals/InfoModal.svelte"
 
     export let data: PageData
 
     $: progress = data.amount / data.goal * 100
     let donateShown = false
+    let infoModalShown: InfoModalEnum | undefined = undefined
 
     let dark = false
     const darkUnsubscribe = theme.subscribe(value => dark = value === "dark-theme")
@@ -34,6 +37,10 @@
         easing: cubicOut
     })
 
+    const buttonLinkClick = (modalType: InfoModalEnum) => {
+        infoModalShown = modalType
+    }
+
     onMount(() => {
         if (!browser) return
         tweenedProgress.set(1)
@@ -44,24 +51,27 @@
     })
 </script>
 
+<InfoModal modalType="{infoModalShown}" onClose="{() => infoModalShown = undefined}"/>
 <DonateModal shown="{donateShown}" onClose="{() => donateShown = false}"/>
 
 <CenteredPageContainer>
-    <h1 class="counter">{(data.amount * $tweenedProgress).toFixed(2)} €</h1>
+    <div class="info-container">
+        <h1 class="counter">{(data.amount * $tweenedProgress).toFixed(2)} €</h1>
 
-    <Spacer value="var(--spacing-m)"/>
+        <Spacer value="var(--spacing-m)"/>
 
-    <div class="progress-bar-container">
-        <LabelText width="1.5rem" textAlign="right" text="{(progress * $tweenedProgress).toFixed(0)}%"/>
+        <div class="progress-bar-container">
+            <LabelText width="1.5rem" textAlign="right" text="{(progress * $tweenedProgress).toFixed(0)}%"/>
 
-        <div class="progress-bar">
-            <div class="progress" style="width: {(progress * $tweenedProgress)}%"></div>
+            <div class="progress-bar">
+                <div class="progress" style="width: {(progress * $tweenedProgress)}%"></div>
+            </div>
         </div>
+
+        <Spacer value="var(--spacing-l)"/>
+
+        <Button width="min-content" height="2.5rem" label="Donate" onClick={() => donateShown = true}/>
     </div>
-
-    <Spacer value="var(--spacing-l)"/>
-
-    <Button width="min-content" height="2.5rem" label="Donate" onClick={() => donateShown = true}/>
 
     {#if data.lastDonator}
         <Spacer value="var(--spacing-l)"/>
@@ -86,6 +96,12 @@
         <CircleIconButton icon="{dark ? 'sun' : 'moon'}" title="Switch theme" compact="{true}"
                           iconColor="var(--text-color)" onClick={toggleTheme}/>
     </div>
+
+    <div class="bottom-links">
+        <button on:click={() => buttonLinkClick(InfoModalEnum.IMPRINT)}>Imprint</button>
+        <button on:click={() => buttonLinkClick(InfoModalEnum.GENERAL_TERMS)}>General Terms</button>
+        <button on:click={() => buttonLinkClick(InfoModalEnum.CONTACT)}>Contact</button>
+    </div>
 </CenteredPageContainer>
 
 <style lang="scss">
@@ -95,8 +111,42 @@
     right: var(--spacing-m);
   }
 
+  .bottom-links {
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    bottom: var(--spacing-xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+
+    button {
+      font-size: var(--text-smaller);
+      background: none;
+      height: 2rem;
+      padding: 0 1.1rem;
+      color: var(--text-color);
+      border-radius: 1rem;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: rgba(var(--text-color-rgb), 0.075);
+      }
+    }
+  }
+
   .counter {
     font-size: 2.25rem;
+  }
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .progress-bar-container {
@@ -105,7 +155,7 @@
     gap: var(--spacing-ms);
 
     .progress-bar {
-      width: 20rem;
+      width: 17rem;
       height: 0.5rem;
       border-radius: 0.25rem;
       overflow: hidden;
@@ -124,10 +174,6 @@
   .last-donator-container {
     display: flex;
     align-items: center;
-
-    .flag {
-      font-size: 1.25rem;
-    }
 
     .name {
       font-size: var(--text-midsmaller);
@@ -151,6 +197,12 @@
       border-radius: 50%;
       background-color: var(--outline-color);
       margin: 0 var(--spacing-ms);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .bottom-links button {
+      font-size: var(--text-small);
     }
   }
 </style>

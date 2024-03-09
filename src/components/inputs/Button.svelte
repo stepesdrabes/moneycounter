@@ -173,8 +173,7 @@
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
     &:hover {
-      transform: translateY(-0.125rem);
-      opacity: 0.85;
+      opacity: 0.75;
     }
 
     &:disabled {
@@ -195,8 +194,7 @@
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
     &:hover {
-      transform: translateY(-0.125rem);
-      opacity: 0.85;
+      opacity: 0.75;
 
       .background-fill {
         transform: translateY(0);
