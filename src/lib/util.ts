@@ -1,3 +1,5 @@
+import * as twemoji from "twemoji"
+
 export const formatRelativeDate = (date: Date): string => {
     let diff: number = new Date().getTime() - date.getTime()
     let sec: number = Math.floor(diff / 1000)
@@ -24,3 +26,5 @@ export const formatRelativeDate = (date: Date): string => {
 }
 
 export const getFlagEmoji = (countryCode: string) => String.fromCodePoint(...[...countryCode.toUpperCase()].map(x => 0x1f1a5 + x.charCodeAt(0)))
+
+export const convertToTwemoji = (emoji: string) => twemoji.default.parse(emoji)

@@ -26,6 +26,7 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "^5.10.2",
-    "stripe": "^14.20.0"
+    "stripe": "^14.20.0",
+    "twemoji": "^14.0.2"
   }
 }

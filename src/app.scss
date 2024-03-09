@@ -114,6 +114,13 @@ a {
   text-decoration: underline;
 }
 
+img.emoji {
+  height: 1.33rem;
+  width: 1.33rem;
+  margin: 0 0.05rem 0 0.1rem;
+  vertical-align: -0.1rem;
+}
+
 i {
   line-height: 0;
 }
