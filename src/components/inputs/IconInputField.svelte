@@ -40,7 +40,7 @@
     })
 </script>
 
-<div class="icon-input-field"
+<div class="icon-input-field" class:disabled={disabled}
      style="--height: {height}; height: {height}; --outlineColor: {outlineColor}; --bgColor: {backgroundColor}; --textColor: {textColor}; --outlineWidth: {outlineWidth}">
     {#if icon}
         <i class="icon fi fi-br-{icon}" style="color: {iconColor}"></i>
@@ -79,7 +79,13 @@
     isolation: isolate;
     border: var(--outlineWidth) solid var(--outlineColor);
     background-color: var(--bgColor);
-    transition: background-color 0.3s ease-in-out, outline 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, outline 0.3s ease-in-out, opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
+
+    &.disabled {
+      cursor: not-allowed;
+      filter: blur(1px);
+      opacity: 0.6;
+    }
 
     .icon {
       z-index: 1;

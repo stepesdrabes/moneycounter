@@ -8,6 +8,7 @@
     import MoneyInput from "$components/inputs/MoneyInput.svelte"
     import {onMount} from "svelte"
     import {browser} from "$app/environment"
+    import SlideColumn from "$components/misc/SlideColumn.svelte";
 
     export let shown = false
     export let onClose: () => void
@@ -42,7 +43,6 @@
             }),
         }).then((data) => data.json())
 
-        checkingOut = false
         window.location.replace(data.url)
     }
 
@@ -62,26 +62,31 @@
     })
 </script>
 
-<Modal width="27.5rem" height="35rem" shown="{shown}" onClose="{onClose}">
+<Modal width="27.5rem" height="36.5rem" shown="{shown}" onClose="{onClose}">
     <div class="donate-modal-container">
         <h2>How much do you want to donate?</h2>
         <Spacer value="var(--spacing-m)"/>
 
         <MoneyInput on:change={handleAmountChange}/>
+
+        {#if selectedAmount > 0 && selectedAmount < 1}
+            <SlideColumn>
+                <Spacer value="var(--spacing-s)"/>
+                <LabelText text="Minimum amount is 1€" textAlign="center" color="var(--danger-red)"/>
+            </SlideColumn>
+        {/if}
+
         <Spacer value="var(--spacing-s)"/>
 
         <div class="euro-label">
             <span class="label">EUR €</span>
         </div>
 
-        <Spacer value="var(--spacing-s)"/>
-        <LabelText text="Minimum amount is 1€" textAlign="center"/>
-
         <Spacer value="var(--spacing-xl)"/>
 
-        <h2>What's your name?</h2>
+        <h2>To which <span class="yellow-underline">heroic donator</span> may we say thank you?</h2>
         <Spacer value="var(--spacing-m)"/>
-        <IconInputField height="2.5rem" icon="user" placeholder="Name{stayAnonymous ? ` (won't be shown)` : ''}"
+        <IconInputField disabled="{stayAnonymous}" height="2.5rem" icon="user" placeholder="Name"
                         onValueChange="{(value) => selectedName = value}"/>
 
         <Spacer value="var(--spacing-ms)"/>
@@ -100,8 +105,8 @@
         <Spacer value="auto"/>
         <Spacer value="var(--spacing-l)"/>
 
-        <Button loading="{checkingOut}" disabled="{!valuesCorrect}" height="2.5rem"
-                icon="arrow-right" label="Pay through stripe" onClick={checkout}/>
+        <Button loading="{checkingOut}" disabled="{!valuesCorrect}" height="2.5rem" label="Checkout"
+                onClick={checkout}/>
     </div>
 </Modal>
 
@@ -113,6 +118,25 @@
     flex-direction: column;
     align-items: center;
     padding: 3.5rem var(--spacing-l) 2.25rem;
+
+    h2 {
+      text-align: center;
+    }
+
+    .yellow-underline {
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: calc(100% + 0.2rem);
+        height: 0.425rem;
+        background-color: var(--golden-shine);
+        bottom: 0.25rem;
+        left: -0.1rem;
+        z-index: -1;
+      }
+    }
   }
 
   .euro-label {
