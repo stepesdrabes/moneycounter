@@ -4,7 +4,7 @@
 
     export let placeholder = ""
     export let name = ""
-    export let height = "3rem"
+    export let height = "2.5rem"
     export let outlineColor = "var(--outline-color)"
     export let outlineWidth = "1px"
     export let backgroundColor = "transparent"

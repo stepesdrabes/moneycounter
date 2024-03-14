@@ -8,7 +8,11 @@
     export let data: PageData
 </script>
 
-<CenteredPageContainer>
+<svelte:head>
+    <title>Donation successful</title>
+</svelte:head>
+
+<CenteredPageContainer bottomNav="{false}">
     <i class="fi fi-br-check-circle"></i>
     <Spacer value="var(--spacing-ms)"/>
     <h1>Donation was successful</h1>

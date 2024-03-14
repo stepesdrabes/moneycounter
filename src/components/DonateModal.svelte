@@ -9,6 +9,8 @@
     import {onMount} from "svelte"
     import {browser} from "$app/environment"
     import SlideColumn from "$components/misc/SlideColumn.svelte"
+    import TextDropdown from "$components/inputs/TextDropdown.svelte"
+    import {contentCreators} from "$lib/constants"
 
     export let shown = false
     export let onClose: () => void
@@ -18,9 +20,11 @@
     let stayAnonymous = false
     let checkingOut = false
     let countryCode = ""
+    let selectedContentCreator = ""
 
     $: valuesCorrect = selectedAmount >= 1
         && (selectedName.length > 0 || stayAnonymous)
+        && selectedContentCreator.length > 0
 
     const handleAmountChange = (event: CustomEvent<{ value: string }>) => {
         selectedAmount = parseFloat(event.detail.value)
@@ -62,7 +66,7 @@
     })
 </script>
 
-<Modal width="27.5rem" height="36.5rem" shown="{shown}" onClose="{onClose}">
+<Modal width="30rem" height="40rem" shown="{shown}" onClose="{onClose}">
     <div class="donate-modal-container">
         <h2>How much do you want to donate?</h2>
         <Spacer value="var(--spacing-m)"/>
@@ -102,6 +106,13 @@
         <LabelText
                 text="If you select this setting, your name will be hidden in 'last donator' section of the website."/>
 
+        <Spacer value="var(--spacing-xl)"/>
+
+        <TextDropdown options="{contentCreators}" placeholder="Select content creator..."
+                      onSelect="{(value) => selectedContentCreator = value}"/>
+        <Spacer value="var(--spacing-s)"/>
+        <LabelText text="Select the content creator you want to support."/>
+
         <Spacer value="auto"/>
         <Spacer value="var(--spacing-l)"/>
 
@@ -116,6 +127,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
     align-items: center;
     padding: 3.5rem var(--spacing-l) 2.25rem;
 

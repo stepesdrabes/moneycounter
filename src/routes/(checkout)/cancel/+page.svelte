@@ -4,7 +4,11 @@
     import CenteredPageContainer from "$components/layout/CenteredPageContainer.svelte"
 </script>
 
-<CenteredPageContainer>
+<svelte:head>
+    <title>Donation cancelled</title>
+</svelte:head>
+
+<CenteredPageContainer bottomNav="{false}">
     <i class="fi fi-br-cross-circle"></i>
     <Spacer value="var(--spacing-ms)"/>
     <h1>Donation has been cancelled</h1>

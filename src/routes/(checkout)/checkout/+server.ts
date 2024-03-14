@@ -1,5 +1,5 @@
 import type {RequestHandler} from './$types'
-import {stripe} from "../stripe"
+import {stripe} from "../../stripe"
 import {env} from "$env/dynamic/private"
 import {json} from '@sveltejs/kit'
 import db from "$lib/db"

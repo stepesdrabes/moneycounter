@@ -1,3 +1,14 @@
+<script lang="ts">
+    import {onMount} from "svelte"
+    import {showBottomNav} from "$lib/stores"
+
+    export let bottomNav: boolean = true
+
+    onMount(() => {
+        showBottomNav.set(bottomNav)
+    })
+</script>
+
 <div class="page-container">
     <slot/>
 </div>

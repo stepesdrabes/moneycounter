@@ -1,5 +1,5 @@
 import type {PageServerLoad} from './$types'
-import {stripe} from "../stripe"
+import {stripe} from "../../stripe"
 import {redirect} from "@sveltejs/kit"
 import db from "$lib/db"
 import type {LastDonator} from "$type/lastDonator"

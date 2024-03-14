@@ -2,7 +2,7 @@
     import ContentLoader from "$components/misc/ContentLoader.svelte"
 
     export let label = ""
-    export let height = "3rem"
+    export let height = "2.5rem"
     export let width = "100%"
     export let onClick: (() => void) | undefined = undefined
     export let href: string | undefined = undefined
